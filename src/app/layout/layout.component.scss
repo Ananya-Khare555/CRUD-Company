@@ -9,12 +9,12 @@
 }
 
 .toolbar {
-  position: sticky;    // ✅ sticks to top while scrolling
+  position: sticky;   
   top: 0;
   z-index: 1000;
   height: 64px;
 
-  background: #87a4d0; // light blue
+  background: #87a4d0; 
   color: #0d47a1;
   font-weight: 600;
 
