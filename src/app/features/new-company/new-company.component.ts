@@ -257,7 +257,7 @@ export class NewCompanyComponent implements OnInit {
       educationInfo: (emp.educationInfo || []).map((e: any) => ({
         instituteName: e.instituteName,
         courseName: e.courseName,
-        completedYear: this.formatCompletedYear(e.completedYear) // ✅ here
+        completedYear: this.formatCompletedYear(e.completedYear) 
       }))
     }))
   };

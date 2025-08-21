@@ -1,7 +1,7 @@
 .page-wrap {
   padding: 16px;
   background: #f5f6fa;
-  min-height: calc(100vh - 64px); // adjust if you have a toolbar
+  min-height: calc(100vh - 64px);
 }
 
 .header {
@@ -14,7 +14,7 @@
     margin: 0;
     font-size: 22px;
     font-weight: 700;
-    color: #3f51b5; // primary
+    color: #3f51b5;
   }
 
   button mat-icon {
