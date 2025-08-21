@@ -19,7 +19,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 
-// ✅ Past-date validator
+
 export function pastDateValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
   if (!value) return null;
@@ -161,7 +161,6 @@ export class NewCompanyComponent implements OnInit {
       const empGroup = this.fb.group({
         empName: [emp.empName, [Validators.required, Validators.maxLength(25)]],
         designation: [emp.designation],
-        // ✅ keep Date for datepicker
         joinDate: [emp.joinDate ? new Date(emp.joinDate) : '', [Validators.required, pastDateValidator]],
         email: [emp.email, [Validators.required, Validators.email, Validators.maxLength(100)]],
         phoneNumber: [emp.phoneNumber, [Validators.required, Validators.maxLength(15), Validators.pattern(/^\+?[0-9]*$/)]],
@@ -193,7 +192,6 @@ export class NewCompanyComponent implements OnInit {
   onSubmit() {
     if (this.companyForm.valid) {
       const rawValue = this.companyForm.value;
-      // ✅ format joinDate for output JSON
       const formattedJson = this.toExpectedJson(rawValue);
 
       if (this.editingIndex !== null) {
@@ -227,17 +225,14 @@ export class NewCompanyComponent implements OnInit {
   if (!value) return '';
   const date = new Date(value);
 
-  // If it's already a month-year string like "Mar 2021", just return it
   if (typeof value === 'string' && /[A-Za-z]{3}\s\d{4}/.test(value)) {
     return value;
   }
 
-  // Otherwise, format as "Mon YYYY"
   return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 }
 
 
-  // ---------- formatting helpers ----------
   private toExpectedJson(data: any) {
   return {
     companyName: data.companyName,
