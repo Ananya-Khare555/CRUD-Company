@@ -1,0 +1,157 @@
+<div class="page-wrap">
+  <div class="header">
+    <h2 class="title">{{ editingIndex !== null ? 'Edit Company' : 'New Company' }}</h2>
+  </div>
+
+  <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+    <!-- Company Info -->
+    <mat-card class="card">
+      <mat-card-title>Company Basic Info</mat-card-title>
+      <mat-card-content class="grid">
+        <mat-form-field class="full">
+          <mat-label>Company Name</mat-label>
+          <input matInput formControlName="companyName" maxlength="50" required>
+          <mat-error *ngIf="companyForm.get('companyName')?.hasError('required')">
+            Company Name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address">
+        </mat-form-field>
+
+        <mat-form-field class="half">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" maxlength="100" required>
+          <mat-error *ngIf="companyForm.get('email')?.hasError('email')">
+            Invalid email
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="half">
+  <mat-label>Phone Number</mat-label>
+  <input 
+    matInput 
+    formControlName="phoneNumber" 
+    maxlength="15" 
+    required
+    (keypress)="allowOnlyNumbers($event, $event.target)">
+  <mat-error *ngIf="companyForm.get('phoneNumber')?.hasError('pattern')">
+   Phone number can only contain numbers and an optional + at the start
+</mat-error>
+
+</mat-form-field>
+
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Employee Info -->
+    <mat-card class="card mt-2" formArrayName="empInfo">
+      <mat-card-title>Employee Info</mat-card-title>
+      <mat-card-content>
+        <div class="emp-list" *ngFor="let emp of empInfo.controls; let i = index" [formGroupName]="i">
+          <div class="emp-header">
+            <h4>Employee {{ i + 1 }}</h4>
+          </div>
+
+          <div class="grid">
+            <mat-form-field class="half">
+              <mat-label>Employee Name</mat-label>
+              <input matInput formControlName="empName" maxlength="25" required>
+            </mat-form-field>
+
+            <mat-form-field class="half">
+              <mat-label>Designation</mat-label>
+              <mat-select formControlName="designation">
+                <mat-option *ngFor="let d of designations" [value]="d">{{ d }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="half">
+              <mat-label>Join Date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="joinDate" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="emp.get('joinDate')?.hasError('futureDate')">
+                Join Date cannot be in the future
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="half">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" maxlength="100" required>
+            </mat-form-field>
+
+            <mat-form-field class="half">
+              <mat-label>Phone Number</mat-label>
+              <input matInput formControlName="phoneNumber" maxlength="15" required (keypress)="allowOnlyNumbers($event, $event.target)" >
+            </mat-form-field>
+          </div>
+
+          <!-- Skills -->
+          <div formArrayName="skillInfo" class="block">
+            <div class="section-title">
+              <h5>Skills</h5>
+              <button type="button" mat-stroked-button (click)="addSkill(i)">+ Add Skill</button>
+            </div>
+
+            <div *ngFor="let skill of getSkills(i).controls; let j = index" [formGroupName]="j" class="grid tight">
+              <mat-form-field class="half">
+                <mat-label>Skill Name</mat-label>
+                <mat-select formControlName="skillName">
+                  <mat-option *ngFor="let s of skills" [value]="s">{{ s }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="half">
+                <mat-label>Skill Rating</mat-label>
+                <input matInput type="number" formControlName="skillRating" min="1" max="5">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div formArrayName="educationInfo" class="block mt-1">
+            <div class="section-title">
+              <h5>Education</h5>
+              <button type="button" mat-stroked-button (click)="addEducation(i)">+ Add Education</button>
+            </div>
+
+            <div *ngFor="let edu of getEducation(i).controls; let k = index" [formGroupName]="k" class="grid tight">
+              <mat-form-field class="full">
+                <mat-label>Institute</mat-label>
+                <input matInput formControlName="instituteName" maxlength="50" required>
+              </mat-form-field>
+
+              <mat-form-field class="half">
+                <mat-label>Course</mat-label>
+                <input matInput formControlName="courseName" maxlength="25" required>
+              </mat-form-field>
+
+              <mat-form-field class="half">
+                <mat-label>Completed Year</mat-label>
+                <input matInput formControlName="completedYear" placeholder="Mar 2021" required>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="add-employee">
+          <button mat-raised-button color="primary" type="button" (click)="addEmployee()">
+            + Add Employee
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="footer-cta">
+      <button mat-raised-button color="accent" type="submit" [disabled]="companyForm.invalid">
+        {{ editingIndex !== null ? 'Update Company' : 'Save Company' }}
+      </button>
+    </div>
+  </form>
+
+  <!-- Debug output -->
+  <pre class="debug-json" *ngIf="outputJson">{{ outputJson | json }}</pre>
+</div>

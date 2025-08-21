@@ -1,0 +1,44 @@
+.sidebar-wrap {
+  width: 240px;
+  height: 100vh;
+  background: linear-gradient(180deg, #87a4d0, #1e293b);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+
+  .logo {
+    text-align: center;
+    margin: 0 0 20px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: rgb(38, 34, 34);
+  }
+
+  mat-nav-list {
+    padding: 0;
+
+    a {
+      color: #e0e7ff;
+      font-weight: 500;
+      border-radius: 8px;
+      margin: 4px 12px;
+      padding: 8px 12px;
+
+      mat-icon {
+        margin-right: 12px;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &.active {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        font-weight: 600;
+      }
+    }
+  }
+}

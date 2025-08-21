@@ -1,0 +1,36 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+  background: linear-gradient(180deg, #87a4d0, #1e293b);
+  border-right: 1px solid #ddd;
+}
+
+.toolbar {
+  position: sticky;    // ✅ sticks to top while scrolling
+  top: 0;
+  z-index: 1000;
+  height: 64px;
+
+  background: #87a4d0; // light blue
+  color: #0d47a1;
+  font-weight: 600;
+
+  .mat-icon {
+    color: #0d47a1;
+  }
+
+  .title {
+    margin-left: 8px;
+    font-size: 18px;
+    color: rgb(38, 34, 34);;
+  }
+}
+
+.content {
+  padding: 16px;
+  background: #f9fbfd;
+  min-height: calc(100vh - 64px);
+}

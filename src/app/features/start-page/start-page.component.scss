@@ -1,0 +1,46 @@
+.start-wrap {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #e3f2fd 0, transparent 60%),
+    radial-gradient(1000px 500px at 110% 110%, #fce4ec 0, transparent 60%),
+    #fafafa;
+  padding: 24px;
+}
+
+.card {
+  transform: translateY(-60px); // moves card upward
+}
+
+
+ .logo-container {
+    margin-bottom: 20px;
+  }
+
+  .logo {
+    width: 120px;   // adjust size
+    height: auto;
+    border-radius: 8px; // optional if you want rounded corners
+  }
+
+h1 {
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.sub {
+  color: #666;
+  margin: 0 0 24px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: 600;
+}

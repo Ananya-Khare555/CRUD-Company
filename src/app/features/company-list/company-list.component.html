@@ -1,0 +1,64 @@
+<div class="page-wrap">
+  <div class="header">
+    <h2 class="title">Company List</h2>
+    <!-- <button mat-raised-button color="primary" routerLink="/new-company">
+      <mat-icon>add</mat-icon>
+      <span>New Company</span>
+    </button> -->
+  </div>
+
+  <div class="table-wrap" *ngIf="companies.length > 0; else emptyState">
+    <table mat-table [dataSource]="companies" class="mat-elevation-z8">
+
+      <!-- Company Name -->
+      <ng-container matColumnDef="companyName">
+        <th mat-header-cell *matHeaderCellDef>Company Name</th>
+        <td mat-cell *matCellDef="let company">{{ company.companyName }}</td>
+      </ng-container>
+
+      <!-- Email -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let company">{{ company.email }}</td>
+      </ng-container>
+
+      <!-- Phone Number -->
+      <ng-container matColumnDef="phoneNumber">
+        <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+        <td mat-cell *matCellDef="let company">{{ company.phoneNumber }}</td>
+      </ng-container>
+
+      <!-- Created At -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef>Created At</th>
+        <td mat-cell *matCellDef="let company">{{ company.createdAt | date:'short' }}</td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="actions-th">Action</th>
+        <td mat-cell *matCellDef="let _; let i = index" class="actions-td">
+          <button mat-icon-button color="primary" aria-label="Edit company" (click)="editCompany(i)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Delete company" (click)="confirmDelete(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row class="row" *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <ng-template #emptyState>
+    <div class="empty">
+      <mat-icon>domain_disabled</mat-icon>
+      <p>No companies yet. Click “New Company” to create one.</p>
+      <button mat-raised-button color="primary" routerLink="/new-company">
+        Create your first company
+      </button>
+    </div>
+  </ng-template>
+</div>
